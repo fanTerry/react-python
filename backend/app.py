@@ -8,11 +8,14 @@ from auth_api import router as auth_router
 from auth_db import init_users_db
 from blog_api import router as posts_router
 from blog_db import init_posts_db
+from chat_api import router as chat_router
+from chat_db import init_chat_db
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     init_users_db()
     init_posts_db()
+    init_chat_db()
     yield
 
 
@@ -33,3 +36,4 @@ app.add_middleware(
 
 app.include_router(auth_router)
 app.include_router(posts_router)
+app.include_router(chat_router)

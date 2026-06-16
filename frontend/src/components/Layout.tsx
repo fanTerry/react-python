@@ -16,6 +16,7 @@ export function Layout() {
           <Link to="/blog">文章</Link>
           {user ? (
             <>
+              <Link to="/chat">聊天</Link>
               <button
                 type="button"
                 className="nav-profile-link"

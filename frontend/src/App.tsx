@@ -5,6 +5,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { BlogDetailPage } from "./pages/BlogDetailPage";
 import { BlogEditPage } from "./pages/BlogEditPage";
 import { BlogListPage } from "./pages/BlogListPage";
+import { ChatPage } from "./pages/ChatPage";
 import { LoginPage } from "./pages/LoginPage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { RegisterPage } from "./pages/RegisterPage";
@@ -20,6 +21,7 @@ function App() {
           <Route path="register" element={<RegisterPage />} />
           <Route element={<ProtectedRoute />}>
             <Route path="profile" element={<ProfilePage />} />
+            <Route path="chat" element={<ChatPage />} />
             <Route path="blog/new" element={<BlogEditPage />} />
             <Route path="blog/:id/edit" element={<BlogEditPage />} />
           </Route>

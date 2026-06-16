@@ -3,6 +3,7 @@ from fastapi.testclient import TestClient
 
 import auth_db
 import blog_db
+import chat_db
 import database
 
 
@@ -13,6 +14,7 @@ def client(tmp_path, monkeypatch):
     monkeypatch.setattr(database, "DB_PATH", db_path)
     auth_db.init_users_db()
     blog_db.init_posts_db()
+    chat_db.init_chat_db()
 
     from app import app
 

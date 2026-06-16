@@ -1,6 +1,6 @@
 # 博客全栈项目
 
-React + FastAPI 博客：Markdown 写作、分类/标签、JWT 登录、pytest、Docker。
+React + FastAPI 博客：Markdown 写作、分类/标签、JWT 登录、WebSocket 聊天、pytest、Docker。
 
 ## 技术栈
 
@@ -38,7 +38,7 @@ cd backend
 python3 -m pytest -v
 ```
 
-当前 **13 个测试**（博客 7 + 认证 4 + 个人中心 2）
+当前 **17 个测试**（博客 7 + 认证 4 + 个人中心 2 + 聊天 4）
 
 ### CI（GitHub Actions）
 
@@ -65,6 +65,7 @@ docker compose up --build -d
 - Markdown 文章发布 / 编辑 / 删除
 - 分类、标签、搜索、分页
 - 注册 / 登录（JWT），仅作者可改自己的文章
+- **WebSocket 公共聊天室**（登录后 `/chat`，消息持久化）
 - 统一 API 响应 `{ code, message, data }`
 
 ## 项目结构
@@ -76,13 +77,15 @@ docker compose up --build -d
 │   ├── auth_db.py      # 用户数据
 │   ├── blog_api.py     # 博客路由
 │   ├── blog_db.py      # 文章 / 分类 / 标签
+│   ├── chat_api.py     # WebSocket + 聊天 REST
+│   ├── chat_db.py      # 聊天消息
 │   ├── database.py     # SQLite 连接
 │   └── tests/
 ├── frontend/src/
-│   ├── api/            # client、auth、posts
+│   ├── api/            # client、auth、posts、chat
 │   ├── context/        # AuthContext
 │   ├── components/     # Layout、ProtectedRoute
-│   └── pages/          # 博客、登录、注册
+│   └── pages/          # 博客、聊天、登录、注册
 ├── docker-compose.yml
 └── .github/workflows/ci.yml
 ```
@@ -109,6 +112,13 @@ docker compose up --build -d
 | POST   | /api/posts                 | 发布（需登录） |
 | PATCH  | /api/posts/{id}            | 更新（作者）   |
 | DELETE | /api/posts/{id}            | 删除（作者）   |
+
+### 聊天
+
+| 方法      | 路径              | 说明                         |
+| --------- | ----------------- | ---------------------------- |
+| GET       | /api/chat/messages | 最近消息（需登录）           |
+| WebSocket | /api/chat/ws?token= | 实时收发（query 传 JWT）     |
 
 ## 学习路线
 
