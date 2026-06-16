@@ -4,13 +4,7 @@ from datetime import datetime, timezone
 from typing import Any, Optional
 from uuid import uuid4
 
-from database import get_connection
-
-
-def _ensure_column(conn, table: str, column: str, definition: str) -> None:
-    cols = {row[1] for row in conn.execute(f"PRAGMA table_info({table})").fetchall()}
-    if column not in cols:
-        conn.execute(f"ALTER TABLE {table} ADD COLUMN {column} {definition}")
+from database import ensure_column, get_connection, is_postgres
 
 
 def init_posts_db() -> None:
@@ -22,7 +16,9 @@ def init_posts_db() -> None:
                 title TEXT NOT NULL,
                 content TEXT NOT NULL DEFAULT '',
                 created_at TEXT NOT NULL,
-                updated_at TEXT NOT NULL
+                updated_at TEXT NOT NULL,
+                category_id TEXT,
+                author_id TEXT
             )
             """
         )
@@ -53,8 +49,10 @@ def init_posts_db() -> None:
             )
             """
         )
-        _ensure_column(conn, "posts", "category_id", "TEXT")
-        _ensure_column(conn, "posts", "author_id", "TEXT")
+        if not is_postgres():
+            ensure_column(conn, "posts", "category_id", "TEXT")
+            ensure_column(conn, "posts", "author_id", "TEXT")
+        ensure_column(conn, "posts", "source_url", "TEXT")
         conn.commit()
 
 
@@ -127,6 +125,7 @@ def _post_row_to_dict(conn, row) -> dict[str, Any]:
         "category": _fetch_category(conn, row["category_id"]),
         "tags": _fetch_tags(conn, row["id"]),
         "author": _fetch_author(conn, row["author_id"]),
+        "source_url": row["source_url"] if row["source_url"] else None,
     }
 
 
@@ -184,12 +183,12 @@ def list_posts(
 
     with get_connection() as conn:
         total_row = conn.execute(
-            f"SELECT COUNT(*) FROM posts p {where}", params
+            f"SELECT COUNT(*) AS cnt FROM posts p {where}", params
         ).fetchone()
         rows = conn.execute(
             f"""
             SELECT p.id, p.title, p.content, p.created_at, p.updated_at,
-                   p.category_id, p.author_id
+                   p.category_id, p.author_id, p.source_url
             FROM posts p
             {where}
             ORDER BY p.created_at DESC
@@ -201,7 +200,7 @@ def list_posts(
 
     return {
         "items": items,
-        "total": int(total_row[0]),
+        "total": int(total_row["cnt"] if isinstance(total_row, dict) else total_row[0]),
         "page": page,
         "page_size": page_size,
     }
@@ -211,7 +210,7 @@ def get_post(post_id: str) -> Optional[dict[str, Any]]:
     with get_connection() as conn:
         row = conn.execute(
             """
-            SELECT id, title, content, created_at, updated_at, category_id, author_id
+            SELECT id, title, content, created_at, updated_at, category_id, author_id, source_url
             FROM posts WHERE id = ?
             """,
             (post_id,),
@@ -229,9 +228,24 @@ def _set_post_tags(conn, post_id: str, tag_names: list[str]) -> None:
             continue
         tag_id = _get_or_create_tag(conn, tag)
         conn.execute(
-            "INSERT OR IGNORE INTO post_tags (post_id, tag_id) VALUES (?, ?)",
+            "INSERT INTO post_tags (post_id, tag_id) VALUES (?, ?) "
+            "ON CONFLICT (post_id, tag_id) DO NOTHING",
             (post_id, tag_id),
         )
+
+
+def get_post_by_source_url(source_url: str) -> Optional[dict[str, Any]]:
+    with get_connection() as conn:
+        row = conn.execute(
+            """
+            SELECT id, title, content, created_at, updated_at, category_id, author_id, source_url
+            FROM posts WHERE source_url = ?
+            """,
+            (source_url,),
+        ).fetchone()
+        if row is None:
+            return None
+        return _post_row_to_dict(conn, row)
 
 
 def create_post(
@@ -240,6 +254,7 @@ def create_post(
     category_name: Optional[str] = None,
     tag_names: Optional[list[str]] = None,
     author_id: Optional[str] = None,
+    source_url: Optional[str] = None,
 ) -> dict[str, Any]:
     post_id = uuid4().hex[:8]
     now = datetime.now(timezone.utc).isoformat()
@@ -250,10 +265,10 @@ def create_post(
 
         conn.execute(
             """
-            INSERT INTO posts (id, title, content, created_at, updated_at, category_id, author_id)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO posts (id, title, content, created_at, updated_at, category_id, author_id, source_url)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """,
-            (post_id, title, content, now, now, category_id, author_id),
+            (post_id, title, content, now, now, category_id, author_id, source_url),
         )
         _set_post_tags(conn, post_id, tag_names or [])
         conn.commit()

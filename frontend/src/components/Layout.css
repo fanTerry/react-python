@@ -365,8 +365,67 @@
   font-size: 1.1rem;
 }
 
+.chat-page .chat-layout {
+  display: flex;
+  gap: 16px;
+  min-height: 420px;
+}
+
+.chat-sidebar {
+  width: 140px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chat-sidebar-title {
+  margin: 12px 0 4px;
+  font-size: 0.78rem;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.chat-sidebar-empty {
+  font-size: 0.82rem;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.chat-room-btn {
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #d1d5db;
+  cursor: pointer;
+  font-size: 0.88rem;
+  text-align: left;
+  font-family: inherit;
+}
+
+.chat-room-btn:hover {
+  border-color: rgba(167, 139, 250, 0.4);
+  color: #fff;
+}
+
+.chat-room-btn.active {
+  background: rgba(167, 139, 250, 0.2);
+  border-color: #a78bfa;
+  color: #fff;
+}
+
+.chat-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
 .chat-page .chat-messages {
-  height: 360px;
+  flex: 1;
+  height: 320px;
   overflow-y: auto;
   margin-bottom: 16px;
   padding: 12px;
@@ -438,5 +497,202 @@
 .chat-form button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.chat-mention {
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+.chat-read-badge {
+  font-style: normal;
+  color: #6ee7b7;
+  margin-left: 4px;
+}
+
+.chat-message-own .chat-read-badge {
+  color: #93c5fd;
+}
+
+.chat-mention-alerts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.chat-mention-alert {
+  padding: 10px 12px;
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 10px;
+  background: rgba(251, 191, 36, 0.12);
+  color: #fde68a;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-family: inherit;
+}
+
+.chat-mention-alert:hover {
+  background: rgba(251, 191, 36, 0.2);
+}
+
+.chat-mention-alert strong {
+  color: #fbbf24;
+}
+
+.chat-user-row {
+  display: flex;
+  gap: 4px;
+  align-items: stretch;
+}
+
+.chat-user-row .chat-room-btn {
+  flex: 1;
+}
+
+.chat-mention-btn {
+  width: 32px;
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 8px;
+  background: rgba(251, 191, 36, 0.1);
+  color: #fbbf24;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: inherit;
+}
+
+.chat-mention-btn:hover {
+  background: rgba(251, 191, 36, 0.2);
+}
+
+.nav-chat-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-badge {
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #f87171;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+}
+
+.scraper-preview {
+  margin-top: 24px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.scraper-preview-body {
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 420px;
+  overflow: auto;
+  margin: 16px 0 0;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.25);
+  color: #d1d5db;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.scraper-examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: -8px 0 16px;
+}
+
+.scraper-example-chip {
+  cursor: pointer;
+  border: none;
+  font: inherit;
+}
+
+.discover-page .discover-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.discover-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.discover-card {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  flex-direction: column;
+}
+
+.discover-cover {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.discover-cover-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+.discover-card-body {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.discover-card-body h2 {
+  font-size: 1rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.discover-summary {
+  margin: 0;
+  color: #9ca3af;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.discover-link {
+  align-self: flex-start;
+  text-decoration: none;
+  margin-top: 4px;
+}
+
+.discover-pagination {
+  margin-top: 24px;
+  align-items: center;
+  gap: 12px;
 }
 

@@ -1,10 +1,32 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { fetchUnreadMentions } from "../api/chat";
+import { isApiError } from "../api/client";
 import { useAuth } from "../context/AuthContext";
 import "./Layout.css";
 
 export function Layout() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [mentionCount, setMentionCount] = useState(0);
+
+  useEffect(() => {
+    if (!user) {
+      setMentionCount(0);
+      return;
+    }
+    const refresh = () => {
+      fetchUnreadMentions().then((result) => {
+        if (!isApiError(result)) {
+          setMentionCount(result.count);
+        }
+      });
+    };
+    refresh();
+    window.addEventListener("mentions-updated", refresh);
+    return () => window.removeEventListener("mentions-updated", refresh);
+  }, [user, location.pathname]);
 
   return (
     <div className="layout">
@@ -16,7 +38,12 @@ export function Layout() {
           <Link to="/blog">文章</Link>
           {user ? (
             <>
-              <Link to="/chat">聊天</Link>
+              <Link to="/chat" className="nav-chat-link">
+                聊天
+                {mentionCount > 0 && (
+                  <span className="nav-badge">{mentionCount}</span>
+                )}
+              </Link>
               <button
                 type="button"
                 className="nav-profile-link"

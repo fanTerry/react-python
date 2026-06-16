@@ -24,6 +24,7 @@ export interface Post {
   category: Category | null;
   tags: Tag[];
   author: PostAuthor | null;
+  source_url?: string | null;
 }
 
 export interface PostListData {

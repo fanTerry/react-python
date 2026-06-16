@@ -3,10 +3,7 @@ FROM python:3.11-slim
 WORKDIR /app
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    APP_DB_PATH=/data/app.db
-
-RUN mkdir -p /data
+    PYTHONUNBUFFERED=1
 
 COPY requirements-prod.txt .
 RUN pip install --no-cache-dir -r requirements-prod.txt
