@@ -1,0 +1,367 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 720px;
+  margin: 0 auto 24px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-brand {
+  font-weight: 700;
+  color: #a78bfa;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.nav-links a {
+  color: #d1d5db;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.nav-links a:hover {
+  color: #fff;
+}
+
+.nav-profile-link {
+  padding: 4px 0;
+  border: none;
+  background: transparent;
+  color: #a78bfa;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-family: inherit;
+  flex-shrink: 0;
+}
+
+.nav-profile-link:hover {
+  color: #fff;
+}
+
+.nav-logout {
+  padding: 4px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  background: transparent;
+  color: #d1d5db;
+  cursor: pointer;
+  font-size: 0.82rem;
+}
+
+.layout {
+  width: 100%;
+}
+
+.main {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.app {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.header h1 {
+  font-size: 2rem;
+  background: linear-gradient(90deg, #a78bfa, #60a5fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+.status {
+  text-align: center;
+  padding: 32px 0;
+  color: #9ca3af;
+}
+
+.status.empty {
+  font-style: italic;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: #9ca3af;
+  font-size: 0.88rem;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pagination button:not(:disabled):hover {
+  border-color: #a78bfa;
+}
+
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.filter-bar select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.chip {
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+}
+
+.chip-category {
+  background: rgba(96, 165, 250, 0.2);
+  color: #60a5fa;
+}
+
+.chip-tag {
+  background: rgba(167, 139, 250, 0.2);
+  color: #c4b5fd;
+}
+
+.auth-error {
+  color: #f87171;
+  margin-bottom: 12px;
+}
+
+.auth-form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.blog-page .post-card {
+  padding: 16px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.blog-page .post-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+}
+
+.blog-page .post-card h3 a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.blog-page .post-meta {
+  color: #9ca3af;
+  font-size: 0.82rem;
+  margin-bottom: 8px;
+}
+
+.blog-page .author-link {
+  color: #a78bfa;
+  text-decoration: none;
+}
+
+.blog-page .author-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.blog-page .post-excerpt {
+  color: #d1d5db;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.blog-toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.blog-toolbar input {
+  flex: 1;
+  min-width: 180px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.blog-toolbar button,
+.blog-toolbar .btn,
+.blog-actions button,
+.blog-actions .btn,
+.form-actions button,
+.form-actions .btn {
+  display: inline-block;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #a78bfa, #60a5fa);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.blog-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.post-detail h1 {
+  margin-bottom: 8px;
+}
+
+.markdown-body {
+  margin-top: 20px;
+  line-height: 1.7;
+  color: #e5e7eb;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3 {
+  margin-top: 1.2em;
+  color: #fff;
+}
+
+.markdown-body code {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.markdown-body pre {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 12px;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.post-form label {
+  display: block;
+  margin-bottom: 16px;
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+.post-form input,
+.post-form textarea {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.post-form textarea {
+  min-height: 240px;
+  font-family: ui-monospace, monospace;
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.profile-card {
+  padding: 20px;
+  margin-bottom: 24px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile-card h2 {
+  margin: 0 0 8px;
+  color: #fff;
+}
+
+.profile-meta {
+  color: #9ca3af;
+  font-size: 0.88rem;
+  margin-bottom: 12px;
+}
+
+.profile-stats {
+  color: #d1d5db;
+  margin-bottom: 16px;
+}
+
+.profile-stats strong {
+  color: #a78bfa;
+}
+
+.profile-section-title {
+  margin-bottom: 16px;
+  color: #e5e7eb;
+  font-size: 1.1rem;
+}
+
